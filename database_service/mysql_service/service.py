@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from pydantic import BaseModel
+import os
 
 class MySQLService:
     def __init__(self, database_url: str):
@@ -45,8 +46,7 @@ class MySQLService:
 class MySQLSingleton:
     _instance = None
 
-    @classmethod
-    def get_instance(cls, database_url: str):
+    def __new__(cls) -> "MySQLService":
         if cls._instance is None:
-            cls._instance = MySQLService(database_url)
+            cls._instance = MySQLService(os.getenv('DATABASE_URL', ''))
         return cls._instance
