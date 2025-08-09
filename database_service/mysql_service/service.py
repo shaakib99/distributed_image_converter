@@ -21,7 +21,7 @@ class MySQLService:
     
     async def get_all(self, schema: DeclarativeBase, query: BaseModel) -> list[DeclarativeBase]:
         async with self.Session() as session:
-            instances = await session.query(schema).filter_by(**query.dict()).all()
+            instances = await session.query(schema).filter_by(**query.model_dump()).all()
             return instances
 
     async def update_one(self, schema: DeclarativeBase, id: str, data: BaseModel) -> DeclarativeBase:
