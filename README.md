@@ -1,0 +1,2 @@
+[![Run tests on pull request](https://github.com/shaakib99/distributed_image_converter/actions/workflows/run_test.yml/badge.svg)](https://github.com/shaakib99/distributed_image_converter/actions/workflows/run_test.yml)
+[![Deploy to Docker Hub](https://github.com/shaakib99/distributed_image_converter/actions/workflows/deploy-to-dockerhub.yml/badge.svg)](https://github.com/shaakib99/distributed_image_converter/actions/workflows/deploy-to-dockerhub.yml)
