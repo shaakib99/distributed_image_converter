@@ -2,7 +2,7 @@ import boto3
 import os
 import asyncio
 
-class AWSS3Service:
+class AWSS3Client:
     def __init__(self):
         self.s3_client = boto3.client("s3", 
                                        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
