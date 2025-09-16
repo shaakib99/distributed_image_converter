@@ -5,6 +5,7 @@ from file_upload_service.router import router as file_upload_router
 from file_processing_service.rabbitmq_service.service import RabbitMQServiceSingleton
 from file_processing_service.rabbitmq_service.consumers.consumer import workers_map
 from loggin_service.service import get_logger
+import os
 
 logger = get_logger("main")
 get_logger("uvicorn.error").disabled = True
@@ -22,6 +23,7 @@ async def lifespan(app: FastAPI):
     await rabbitmq_service.connect()
     for routing_key, workers in workers_map.items():
         await rabbitmq_service.declare_queue(routing_key)
+        await rabbitmq_service.bind_exchange_queue(os.getenv("DEFAULT_EXCHANGE", "file_processing_exchange"), routing_key)
         for worker in workers:
             await rabbitmq_service.consume(routing_key, on_message=worker)
     logger.info("Consumers are running")
