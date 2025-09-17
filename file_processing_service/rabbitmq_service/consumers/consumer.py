@@ -13,4 +13,4 @@ def worker(routing_key: str):
 @worker('process_image')
 async def process_message(message: AbstractIncomingMessage) -> None:
     # Process the incoming message
-    print(f"Received message: ")
+    print(f"Received message: " + message.body.decode())
