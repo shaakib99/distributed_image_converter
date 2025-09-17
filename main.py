@@ -21,6 +21,7 @@ async def lifespan(app: FastAPI):
 
     logger.info("Declaring queues and starting consumers...")
     await rabbitmq_service.connect()
+    await rabbitmq_service.declare_exchange(os.getenv("DEFAULT_EXCHANGE", "file_processing_exchange"), "direct")
     for routing_key, workers in workers_map.items():
         await rabbitmq_service.declare_queue(routing_key)
         await rabbitmq_service.bind_exchange_queue(os.getenv("DEFAULT_EXCHANGE", "file_processing_exchange"), routing_key)
