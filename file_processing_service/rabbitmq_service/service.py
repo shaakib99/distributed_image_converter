@@ -12,6 +12,9 @@ class RabbitMQService:
     async def connect(self) -> None:
         self._connection = await connect_robust(self.uri)
         self._channel = await self._connection.channel()
+    
+    def is_connected(self) -> bool:
+        return self._connection is not None and self._channel is not None
 
     async def publish(self, target_exchange: str, routing_key: str, body: bytes) -> None:
         if not self._channel:
